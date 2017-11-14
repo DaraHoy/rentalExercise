@@ -20,29 +20,64 @@
     <button onclick='rental.getInfo()'>Update Info</button><button onclick='rental.rentEcon()'>Rent an Economy</button><button onclick='rental.rentMid()'>Rent a Midsize</button>
 
     <script>
-        var rental = {
+
+    // 2 objects
+    // Car rental
+    // Rental - name of renter & car type
+
+    // Site should have form
+    // Form contains:
+    // Text field input Renter name
+    // Dropdown to select car type.
+
+    // Selecting cartype should:
+    // Display # available
+    // Display cartype’s price
+
+    // Button to rent car should:
+    // Not work if renter name empty or car not selected or no cars available
+
+        var carRental = {
             name: 'Enterprise',
-            economy: "Economy",
-            economyAvail: 80,
-            midsize: "Midsize",
-            midsizeAvail: 180,
-            getInfo: function(){
-                document.getElementById('name').innerHTML = this.name;
-                document.getElementById('economy').innerHTML = this.economy;
-                document.getElementById('economyAvail').innerHTML = this.economyAvail;
-                document.getElementById('midsize').innerHTML = this.midsize;
-                document.getElementById('midsizeAvail').innerHTML = this.midsizeAvail;
+            economy: {
+                price: 50,
+                available: 10
+
             },
-            rentEcon: function(){
-                this.economyAvail--
-                document.getElementById('economyAvail').innerHTML = this.economyAvail;
+            compact: {
+                price: 50,
+                available: 9
             },
-            rentMid: function(){
-                this.midsizeAvail--
-                document.getElementById('midsizeAvail').innerHTML = this.midsizeAvail;
+            fullSize: {
+                price: 50,
+                available: 10
             }
+
         }
-        window.onload = rental.getInfo();
+
+        var rental = {
+            renterName: "",
+            carType: ""
+        }
+
     </script>
 </body>
 </html>
+
+<!--getInfo: function(){-->
+<!--                document.getElementById('name').innerHTML = this.name;cd-->
+<!--                document.getElementById('economy').innerHTML = this.economy;-->
+<!--                document.getElementById('economyAvail').innerHTML = this.economyAvail;-->
+<!--                document.getElementById('midsize').innerHTML = this.midsize;-->
+<!--                document.getElementById('midsizeAvail').innerHTML = this.midsizeAvail;-->
+<!--            },-->
+<!--            rentEcon: function(){-->
+<!--                this.economyAvail---->
+<!--                document.getElementById('economyAvail').innerHTML = this.economyAvail;-->
+<!--            },-->
+<!--            rentMid: function(){-->
+<!--                this.midsizeAvail---->
+<!--                document.getElementById('midsizeAvail').innerHTML = this.midsizeAvail;-->
+<!--            }-->
+<!--        }-->
+<!--        window.onload = rental.getInfo();-->
