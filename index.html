@@ -7,7 +7,7 @@
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="style.css" type="text/css" />
     <title>Car Dealership</title>
 </head>
 <body>
@@ -22,9 +22,14 @@
         </div>
         <div class="row text-center">
             <div class="col-sm-12">
-                <form>
-                    <input type="text" name="Name" placeholder='First Name'/><br>
-                    <input type="select"/>
+                <form action='rental.js' method='post'>
+                    <input type="text" name="Name" placeholder='Your Name'/><br>
+                    <select id="card" name="usercard">
+                        <option value='economy'>Economy</option>
+                        <option value='subcompact'>Subcompact</option>
+                        <option value='fullsize'>Fullsize</option>
+                    </select>
+                    <button class='btn-info' type='submit'>Submit a reservation</button>
                 </form>
             </div>
         </div>
