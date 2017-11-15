@@ -1,6 +1,11 @@
-var renter = {
-    name: "Dara",
-    carType: "Subcompact"
-};
+var rentals = {
 
-console.log(renter);
+    economy: [{
+        name: "Dara",
+        carType: "Subcompact"
+    }],
+    subcompact: [{
+        name: "Dara",
+        carType: "Subcompact"
+    }]
+};

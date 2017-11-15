@@ -1,23 +1,18 @@
-var rental = {
-    name: 'Enterprise',
-    economy: "Economy",
-    economyAvail: 80,
-    midsize: "Midsize",
-    midsizeAvail: 180,
-    getInfo: function() {
-        document.getElementById('name').innerHTML = this.name;
-        document.getElementById('economy').innerHTML = this.economy;
-        document.getElementById('economyAvail').innerHTML = this.economyAvail;
-        document.getElementById('midsize').innerHTML = this.midsize;
-        document.getElementById('midsizeAvail').innerHTML = this.midsizeAvail;
+var carRental = {
+    name: 'Renterprise',
+    economy: {
+        price: 50,
+        available: 10
+
     },
-    rentEcon: function() {
-        this.economyAvail--
-            document.getElementById('economyAvail').innerHTML = this.economyAvail;
+    compact: {
+        price: 50,
+        available: 9
     },
-    rentMid: function() {
-        this.midsizeAvail--
-            document.getElementById('midsizeAvail').innerHTML = this.midsizeAvail;
+    fullSize: {
+        price: 50,
+        available: 10
     }
 }
-window.onload = rental.getInfo();
+
+document.getElementById('name').innerHTML = carRental.name;
