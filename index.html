@@ -20,25 +20,66 @@
                 <h1 id='name'></h1>
             </div>
         </div>
-        <div class="row text-center">
+        <div class="row text-center" id='carSelect'>
             <div class="col-sm-12">
-                <form action='rental.js' method='post'>
-                    <input type="text" name="Name" placeholder='Your Name'/><br>
-                    <select id="card" name="usercard">
-                        <option value='economy'>Economy</option>
-                        <option value='subcompact'>Subcompact</option>
-                        <option value='fullsize'>Fullsize</option>
+                <form action='rental.js' method='post' class='form-inline'>
+                    <input type="text" name="Name" placeholder='Your Name'/>
+                    <select id="card" name="Type" onchange='displayInfo(this.value)'>
+                        <option value="" disabled selected hidden>Select Vehicle</option>
+                        <option value='Economy'>Economy</option>
+                        <option value='Subcompact'>Subcompact</option>
+                        <option value='Fullsize'>Fullsize</option>
                     </select>
-                    <button class='btn-info' type='submit'>Submit a reservation</button>
                 </form>
+                <button class='btn btn-sm btn-primary' type='submit'>Make a Reservation</button>
             </div>
         </div>
     </div>
 
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <h3 id='displayInfo'></h3>
+        </div>
+    </div>
+    <script>
+
+        var carRental = {
+            name: 'Renterprise',
+            Economy: {
+                price: 50,
+                available: 9
+
+            },
+            Subcompact: {
+                price: 80,
+                available: 10
+            },
+            Fullsize: {
+                price: 100,
+                available: 10
+            }
+        };
+
+        var rentals = {
+            economy: [{
+                name: "Dara",
+                carType: "Subcompact"
+            }],
+            subcompact: [{
+                name: "",
+                carType: ""
+            }]
+        };
+    function displayInfo(val){
+        var selection = carRental[val];
+        document.getElementById('displayInfo').innerHTML = val + " $" + selection.price + "<br>" + selection.available + " Available" ;
+    }
+    console.log(carRental.Economy.available)
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="rental.js"></script>
-    <script type="text/javascript" src="renter.js"></script>
+
 </body>
 </html>
