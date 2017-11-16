@@ -1,98 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css" type="text/css" />
-    <title>Car Dealership</title>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="ie=edge" http-equiv="X-UA-Compatible"><!-- Bootstrap CDN -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js">
+	</script>
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<title>Car Dealership</title>
 </head>
 <body>
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-sm-12">
+				<h1 id='name'></h1>
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col-sm-12">
+				<form class='form-inline' id="carSelect" name='carSelect' onsubmit='return makeReservation()'>
+					<input name="name" placeholder='Your Name' type="text"> <select name="type" onchange='displayInfo(this.value)'>
+						<option disabled hidden="" selected value="none">
+							Select Vehicle
+						</option>
+						<option value='Economy'>
+							Economy
+						</option>
+						<option value='Subcompact'>
+							Subcompact
+						</option>
+						<option value='Fullsize'>
+							Fullsize
+						</option>
+					</select> <button class='btn btn-sm btn-primary' type='submit' value='submit'>Make a Reservation</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row text-center">
+		<div class="col-sm-12">
+			<h3 id='displayInfo'></h3>
+		</div>
+	</div>
+	<script>
 
+	       var carRental = { // Car Rentals main data object
+	           name: 'Renterprise',
+	           Economy: {
+	               price: 50,
+	               available: 9
 
+	           },
+	           Subcompact: {
+	               price: 80,
+	               available: 10
+	           },
+	           Fullsize: {
+	               price: 100,
+	               available: 10
+	           }
+	       };
 
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <h1 id='name'></h1>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <form name='carSelect' class='form-inline' onsubmit='return makeReservation()'>
-                    <input type="text" name="name" placeholder='Your Name'/>
-                    <select name="type" onchange='displayInfo(this.value)'>
-                        <option value="none" disabled selected hidden>Select Vehicle</option>
-                        <option name='economy' value='Economy'>Economy</option>
-                        <option name='subcompact' value='Subcompact'>Subcompact</option>
-                        <option name='fullsize' value='Fullsize'>Fullsize</option>
-                    </select>
-                    <button class='btn btn-sm btn-primary' type='submit' value='submit'>Make a Reservation</button>
-                </form>
-            </div>
-        </div>
-    </div>
+	       var rented = { //rented object to store renters name, each car type is given its own array
+	           Economy: [],
+	           Subcompact: [],
+	           fullSize: []
+	       };
+	   function displayInfo(val){ //displays price and availability msg when a selection is made from the dropdown list
+	       var selection = carRental[val];
+	       document.getElementById('displayInfo').innerHTML = val + " $" + selection.price + "<br>" + selection.available + " Available" ;
+	   }
 
-    <div class="row text-center">
-        <div class="col-sm-12">
-            <h3 id='displayInfo'></h3>
-        </div>
-    </div>
-    <script>
+	   function makeReservation(){
+	       // Assigns the values from the Name field and Type slected
+	       var size = document.forms["carSelect"]['type'].value;
+	       var renter = document.forms["carSelect"]['name'].value;
+	       // Form Validation if any field is left blank or unselected alert msg will pop
+	       if( size == "none"){
+	           alert("Please choose a car type");
+	       }
+	       else if( renter ==""){
+	           alert("Please enter your name");
+	       } else { //if Successful Renter's name is pushed to an array based on the size rented i.e. economy will go to rented.Economy
+	           rented[size].push({name: renter})
+	           carRental[size].available--; // after the amount availble, based on size, will decrement from carRental object
+	           document.getElementById('displayInfo').innerHTML = "Thank You<br>Your reservation was successful!"
+	       }
+	       return false;
+	   }
 
-        var carRental = {
-            name: 'Renterprise',
-            Economy: {
-                price: 50,
-                available: 9
-
-            },
-            Subcompact: {
-                price: 80,
-                available: 10
-            },
-            Fullsize: {
-                price: 100,
-                available: 10
-            }
-        };
-
-        var rented = {
-            Economy: [],
-            Subcompact: [],
-            fullSize: []
-        };
-    function displayInfo(val){
-        var selection = carRental[val];
-        document.getElementById('displayInfo').innerHTML = val + " $" + selection.price + "<br>" + selection.available + " Available" ;
-    }
-
-    function makeReservation(){
-        var size = document.forms["carSelect"]['type'].value;
-        var renter = document.forms["carSelect"]['name'].value;
-
-        if( size == "none"){
-            alert("Please choose a car type");
-        }
-        else if( renter ==""){
-            alert("Please enter your name");
-        } else {
-            rented[size].push({name: renter})
-            carRental[size].available--;
-            document.getElementById('displayInfo').innerHTML = "Thank You<br>Your reservation was successful!"
-        }
-        return false;
-    }
-
-
-
-    </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
+	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js">
+	</script>
 </body>
 </html>
