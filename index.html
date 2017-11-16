@@ -20,18 +20,18 @@
                 <h1 id='name'></h1>
             </div>
         </div>
-        <div class="row text-center" id='carSelect'>
+        <div class="row text-center">
             <div class="col-sm-12">
-                <form action='rental.js' method='post' class='form-inline'>
-                    <input type="text" name="Name" placeholder='Your Name'/>
-                    <select id="card" name="Type" onchange='displayInfo(this.value)'>
-                        <option value="" disabled selected hidden>Select Vehicle</option>
-                        <option value='Economy'>Economy</option>
-                        <option value='Subcompact'>Subcompact</option>
-                        <option value='Fullsize'>Fullsize</option>
+                <form name='carSelect' class='form-inline' onsubmit='return makeReservation()'>
+                    <input type="text" name="name" placeholder='Your Name'/>
+                    <select name="type" onchange='displayInfo(this.value)'>
+                        <option value="none" disabled selected hidden>Select Vehicle</option>
+                        <option name='economy' value='Economy'>Economy</option>
+                        <option name='subcompact' value='Subcompact'>Subcompact</option>
+                        <option name='fullsize' value='Fullsize'>Fullsize</option>
                     </select>
+                    <button class='btn btn-sm btn-primary' type='submit' value='submit'>Make a Reservation</button>
                 </form>
-                <button class='btn btn-sm btn-primary' type='submit'>Make a Reservation</button>
             </div>
         </div>
     </div>
@@ -60,21 +60,34 @@
             }
         };
 
-        var rentals = {
-            economy: [{
-                name: "Dara",
-                carType: "Subcompact"
-            }],
-            subcompact: [{
-                name: "",
-                carType: ""
-            }]
+        var rented = {
+            Economy: [],
+            Subcompact: [],
+            fullSize: []
         };
     function displayInfo(val){
         var selection = carRental[val];
         document.getElementById('displayInfo').innerHTML = val + " $" + selection.price + "<br>" + selection.available + " Available" ;
     }
-    console.log(carRental.Economy.available)
+
+    function makeReservation(){
+        var size = document.forms["carSelect"]['type'].value;
+        var renter = document.forms["carSelect"]['name'].value;
+
+        if( size == "none"){
+            alert("Please choose a car type");
+        }
+        else if( renter ==""){
+            alert("Please enter your name");
+        } else {
+            rented[size].push({name: renter})
+            carRental[size].available--;
+            document.getElementById('displayInfo').innerHTML = "Thank You<br>Your reservation was successful!"
+        }
+        return false;
+    }
+
+
 
     </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
