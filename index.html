@@ -20,19 +20,12 @@
 		<div class="row text-center">
 			<div class="col-sm-12">
 				<form class='form-inline' id="carSelect" name='carSelect' onsubmit='return makeReservation()'>
-					<input name="name" placeholder='Your Name' type="text"> <select name="type" onchange='displayInfo(this.value)'>
+					<input name="name" placeholder='Your Name' type="text">
+					<select name="type" id='dropDown' onchange='displayInfo(this.value)'>
 						<option disabled hidden="" selected value="none">
 							Select Vehicle
 						</option>
-						<option value='Economy'>
-							Economy
-						</option>
-						<option value='Subcompact'>
-							Subcompact
-						</option>
-						<option value='Fullsize'>
-							Fullsize
-						</option>
+
 					</select> <button class='btn btn-sm btn-primary' type='submit' value='submit'>Make a Reservation</button>
 				</form>
 			</div>
@@ -62,11 +55,37 @@
 	           }
 	       };
 
+	       var types = [
+	       		{
+	       			size: "Economy",
+	       			price: 50,
+	       			available: 9
+	       		},
+	       		{
+	       			size: "Subcompact",
+	       			price: 80,
+	       			available: 10
+	       		},
+	       		{
+	       			size: "Fullsize",
+	       			price: 100,
+	       			available: 10
+	       		}
+	       	]
+
 	       var rented = { //rented object to store renters name, each car type is given its own array
 	           Economy: [],
 	           Subcompact: [],
-	           fullSize: []
+	           Fullsize: []
 	       };
+
+	    for(var i = 0; i < types.length; i++ ){
+			var selectOpt = document.createElement('OPTION');
+			selectOpt.setAttribute('value', types[i].size);
+			selectOpt.innerHTML = types[i].size;
+			document.getElementById('dropDown').appendChild(selectOpt);
+	    }
+
 	   function displayInfo(val){ //displays price and availability msg when a selection is made from the dropdown list
 	       var selection = carRental[val];
 	       document.getElementById('displayInfo').innerHTML = val + " $" + selection.price + "<br>" + selection.available + " Available" ;
@@ -83,7 +102,7 @@
 	       else if( renter ==""){
 	           alert("Please enter your name");
 	       } else { //if Successful Renter's name is pushed to an array based on the size rented i.e. economy will go to rented.Economy
-	           rented[size].push({name: renter})
+	           rented[size].push({name: renter, type: size})
 	           carRental[size].available--; // after the amount availble, based on size, will decrement from carRental object
 	           document.getElementById('displayInfo').innerHTML = "Thank You<br>Your reservation was successful!"
 	       }
